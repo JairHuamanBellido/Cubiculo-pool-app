@@ -32,10 +32,6 @@ class CubicleListAdapter(val arrCubicles:ArrayList<CubicleResponse>): RecyclerVi
                 startTime.text =  cubicleResponse.startTime
                 endTime.text =  cubicleResponse.endTime;
 
-
-
-
-
             }
 
 
@@ -52,7 +48,6 @@ class CubicleListAdapter(val arrCubicles:ArrayList<CubicleResponse>): RecyclerVi
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-
                 if(arrCubicles[position].status){
                     paintCubicleCard(holder)
                 }
@@ -60,12 +55,8 @@ class CubicleListAdapter(val arrCubicles:ArrayList<CubicleResponse>): RecyclerVi
                     removePaint(holder)
                 }
 
-
-
             holder.linearLayout.setOnClickListener{selectCubicle(holder,position)}
             holder.bind(arrCubicles[position],holder.itemView)
-
-
 
         }
 

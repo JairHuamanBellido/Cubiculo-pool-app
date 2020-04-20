@@ -22,24 +22,14 @@ class CubicleAvailablesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cubicle_availables)
 
-
-
         setupRecyclerView()
-
-
-
 
 
         val hour = intent.extras.getString("hours")
         val quantityHours =  intent.getStringExtra("quantityHours");
         val date =  intent.getStringExtra("date")
 
-
-
-
-
-
-       val cubicleService =  ApiGateway().api.create<CubicleService>(CubicleService::class.java)
+        val cubicleService =  ApiGateway().api.create<CubicleService>(CubicleService::class.java)
 
         cubicleService.findAllAvailableCubicles(date,hour,quantityHours).enqueue(object:Callback<ArrayList<CubicleResponse>>{
             override fun onFailure(call: Call<ArrayList<CubicleResponse>>, t: Throwable) {
