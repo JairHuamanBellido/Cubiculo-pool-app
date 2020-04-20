@@ -12,9 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".HomeActivity"></activity>
+        <activity android:name=".CubicleItemActivity"></activity>
+        <activity android:name=".CubicleAvailablesActivity" />
+        <activity android:name=".SearchCubicleActivity" />
+        <activity android:name=".HomeActivity" />
         <activity android:name=".RegisterSuccessActivity" />
-        <activity android:name=".success.RegisterCompleteActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>

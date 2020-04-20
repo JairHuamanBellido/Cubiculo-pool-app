@@ -27,17 +27,16 @@ import retrofit2.converter.gson.GsonConverterFactory
 class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        val shared =  getSharedPreferences("db_local",0)
+    val sharedPreferences = getSharedPreferences("db_local", 0)
+        super.onCreate(savedInstanceState)
 
-        println(shared.all.containsKey("code"))
-        if(shared.all.containsKey("code")){
-            val intent =  Intent(getApplicationContext(),HomeActivity::class.java);
-            startActivity(intent)
+        if(sharedPreferences.contains("code")){
+            val intent = Intent(getApplicationContext(),HomeActivity::class.java)
+            startActivity(intent);
         }
         else {
 
 
-            super.onCreate(savedInstanceState)
             setContentView(R.layout.activity_main)
 
             val registerButton = findViewById<TextView>(R.id.register_button)
@@ -45,6 +44,7 @@ class LoginActivity : AppCompatActivity() {
             loginButton.setOnClickListener { auth() }
             registerButton.setOnClickListener { navigateToRegister() }
         }
+
     }
 
 
@@ -58,7 +58,8 @@ class LoginActivity : AppCompatActivity() {
 
         service.authenticate(authRequest).enqueue(object : Callback<AuthResponse>{
             override fun onFailure(call: Call<AuthResponse>, t: Throwable) {
-                println("Algo salio aml")
+                println("Algo salio aml");
+                println(t);
             }
 
             override fun onResponse(call: Call<AuthResponse>, response: Response<AuthResponse>) {
