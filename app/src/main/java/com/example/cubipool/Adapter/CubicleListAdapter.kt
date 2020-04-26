@@ -1,5 +1,6 @@
 package com.example.cubipool.Adapter
 
+import android.content.SharedPreferences
 import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,16 +9,14 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.cubipool.Interfaces.OnCubicleClickListener
 import com.example.cubipool.R
 
 import com.example.cubipool.service.cubicle.CubicleResponse
 import kotlinx.android.synthetic.main.activity_cubicle_item.view.*
 
-class CubicleListAdapter(val arrCubicles:ArrayList<CubicleResponse>): RecyclerView.Adapter<CubicleListAdapter.ViewHolder>() {
+class CubicleListAdapter(val arrCubicles:ArrayList<CubicleResponse>, val itemClickListener:OnCubicleClickListener): RecyclerView.Adapter<CubicleListAdapter.ViewHolder>() {
 
-    private var lastCubicleSelected: ViewHolder? = null;
-    private var _position  = 0;
-    private var name = "";
     class ViewHolder(itemView:View):RecyclerView.ViewHolder(itemView){
 
             private val name:TextView =  itemView.findViewById(R.id.cubicleName)
@@ -26,12 +25,11 @@ class CubicleListAdapter(val arrCubicles:ArrayList<CubicleResponse>): RecyclerVi
             private val endTime:TextView =  itemView.findViewById(R.id.endTimeCubicle)
             val linearLayout = itemView.findViewById<LinearLayout>(R.id.cardCubicleLayout)
 
-            fun bind(cubicleResponse:CubicleResponse, itemView: View){
+            fun bind(cubicleResponse:CubicleResponse, clickListener: OnCubicleClickListener){
                 name.text =  cubicleResponse.name;
                 date.text =  "(${cubicleResponse.day})"
                 startTime.text =  cubicleResponse.startTime
                 endTime.text =  cubicleResponse.endTime;
-
             }
 
 
@@ -47,7 +45,6 @@ class CubicleListAdapter(val arrCubicles:ArrayList<CubicleResponse>): RecyclerVi
         }
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
                 if(arrCubicles[position].status){
                     paintCubicleCard(holder)
                 }
@@ -56,11 +53,11 @@ class CubicleListAdapter(val arrCubicles:ArrayList<CubicleResponse>): RecyclerVi
                 }
 
             holder.linearLayout.setOnClickListener{selectCubicle(holder,position)}
-            holder.bind(arrCubicles[position],holder.itemView)
-
+            holder.bind(arrCubicles[position],itemClickListener)
         }
 
         private fun selectCubicle(holder:ViewHolder, position: Int){
+
 
             arrCubicles[position].status = !arrCubicles[position].status
 
@@ -68,6 +65,9 @@ class CubicleListAdapter(val arrCubicles:ArrayList<CubicleResponse>): RecyclerVi
                 arrCubicles[e].status = position == e
                 println(arrCubicles[e].status);
             }
+
+            // Enviando datos al activity padre
+            itemClickListener.onCubicleSelected(arrCubicles[position].id);
 
             notifyDataSetChanged()
 
