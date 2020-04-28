@@ -70,7 +70,17 @@ class CubicleAvailablesActivity : AppCompatActivity(),OnCubicleClickListener {
         quantityHours =  intent.getStringExtra("quantityHours");
         date =  intent.getStringExtra("date")
         codigo_dos =  intent.getStringExtra("second_user");
-        hora_fin = (hour.take(2).toInt() + quantityHours.toInt()).toString()+":00"
+        var _helpHorafin = (hour.take(2).toInt() + quantityHours.toInt())
+
+        if(_helpHorafin < 10){
+            hora_fin = "0${_helpHorafin.toString()}:00"
+
+        }
+        else{
+            hora_fin = (hour.take(2).toInt() + quantityHours.toInt()).toString()+":00"
+
+        }
+
     }
 
 
@@ -143,6 +153,7 @@ class CubicleAvailablesActivity : AppCompatActivity(),OnCubicleClickListener {
 
 
 
+
         /**
          * @param date      -> "2020-04-17", formato : AAAA-MM-DD | String
          * @param hour      -> "13:00" | String
@@ -152,7 +163,8 @@ class CubicleAvailablesActivity : AppCompatActivity(),OnCubicleClickListener {
          * @param codigo_dos-> "u201413797" | String
          * @param cubiculo_id-> 2 | Int
          */
-        reservationService.submitReservation(ReservationRequest(date,hour,hora_fin,"Monterrico",codigo_uno,codigo_dos,cubiculo_id)).enqueue(object:Callback<ReservationRequest>{
+        reservationService.submitReservation(ReservationRequest(date,hour,hora_fin,"Monterrico",codigo_uno,codigo_dos,cubiculo_id,"Calculo 2")).enqueue(object:Callback<ReservationRequest>{
+
             override fun onFailure(call: Call<ReservationRequest>, t: Throwable) {
                 Log.d("error", "Algo salio mal")
             }

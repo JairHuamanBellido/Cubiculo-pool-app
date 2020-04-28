@@ -4,15 +4,26 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.example.cubipool.Adapter.PagerAdapter
+import com.example.cubipool.Adapter.UserReservationAvailablesAdapter
 import com.example.cubipool.Fragments.SearchFragment
+import com.example.cubipool.Interfaces.OnReservationAvailableListener
+import com.example.cubipool.network.ApiGateway
+import com.example.cubipool.service.user.UserApiService
+import com.example.cubipool.service.user.UserReservationsAvailables
 import kotlinx.android.synthetic.main.activity_home.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity(), OnReservationAvailableListener {
 
     private lateinit var myViewPager: ViewPager
     private lateinit var homeBtn: ImageButton
@@ -21,9 +32,11 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var mPagerAdapter:PagerAdapter
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+
 
         myViewPager =  findViewById(R.id.mViewPager)
 
@@ -91,20 +104,11 @@ class HomeActivity : AppCompatActivity() {
     }
 
 
-    /*    private fun logout(){
-        val sharedPreferences:SharedPreferences =  getSharedPreferences("db_local",0);
-        val editor = sharedPreferences.edit()
-        editor.remove("code")
-        editor.apply()
 
-        val intent  = Intent(getApplicationContext(),LoginActivity::class.java);
-        startActivity(intent);
-    }*/
-
-    @Override
-    fun ga(){
-        println("asdqweqweqw")
+    override fun onItemSelected(userReservationsAvailables: UserReservationsAvailables) {
+        Log.d("reservation",userReservationsAvailables.id.toString())
     }
+
 
 
 

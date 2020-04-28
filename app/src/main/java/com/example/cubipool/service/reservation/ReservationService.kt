@@ -16,6 +16,7 @@ class ReservationRequest(
     var sede:String,
     var codigo_uno:String,
     var codigo_dos:String,
-    var cubiculo_id:Int
+    var cubiculo_id:Int,
+    var theme:String
 )
 
