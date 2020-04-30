@@ -1,19 +1,24 @@
 package com.example.cubipool.service.user
 
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface UserApiService{
 
     @POST("users")
-    fun register(@Body userRequest:UserRequest): Call<UserRequest>
+    fun register(@Body userRequest:UserRequest)
+            :Call<UserRequest>
+    @GET("users/{id}")
+    fun findById(@Path("id") id:String)
+            :Call<UserResponse>
 
     @GET("users/{id}/reservations?availables=true")
-    fun getReservationsAvailables(@Path("id") id:String):Call<ArrayList<UserReservationsAvailables>>
+    fun getReservationsAvailables(@Path("id") id:String)
+            :Call<ArrayList<UserReservationsAvailables>>
 
+    @GET("users/{id}/hoursAvailable")
+    fun getHoursAvailablesByDay(@Path("id")id:String, @Query("date") date:String)
+            :Call<UserHoursAvailables>
 
 }
 
@@ -28,4 +33,14 @@ class UserReservationsAvailables(
     var endTime: String,
     var day: String,
     var status: String
+)
+
+class UserHoursAvailables(
+    var horasDisponibles: Int
+)
+
+class UserResponse(
+    var codigo: String,
+    var nombres: String,
+    var apellidos: String
 )

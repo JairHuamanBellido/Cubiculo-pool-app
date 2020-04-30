@@ -39,7 +39,7 @@ class HomeFragment : Fragment() {
         val view =inflater.inflate(R.layout.fragment_home, container, false)
         rvReservationsAvailables =  view.findViewById(R.id.rv_reservationsAvailables)
 
-    //    rootView = inflater.inflate(R.layout.fragment_home, container, false);
+       rootView = inflater.inflate(R.layout.fragment_home, container, false);
         initVariables()
         setupRecycleViewReservationsAvailables(inflater,container)
       initReservationAvailablesAdapter(HomeActivity())
@@ -71,6 +71,8 @@ class HomeFragment : Fragment() {
             ) {
                 Log.d("Carga exitosa", "Exitos")
                 Log.d("Numero de reservas", response.body()!!.size.toString() )
+
+                etNumeroReservas.text = "Actualmente tiene ${response.body()!!.size} reservas"
 
                 rv_reservationsAvailables.adapter=UserReservationAvailablesAdapter(response.body()!!,contextActual)
             }
