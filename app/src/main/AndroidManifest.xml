@@ -12,7 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ReservationsAvailablesPrototype"></activity>
+        <activity android:name=".ParticipantReservationPrototype"></activity>
+        <activity android:name=".ReservationDetailActivity" />
+        <activity android:name=".ReservationsAvailablesActivity" />
+        <activity android:name=".ReservationsAvailablesPrototype" />
         <activity android:name=".ReservationSucessActivity" />
         <activity android:name=".CubicleItemActivity" />
         <activity android:name=".CubicleAvailablesActivity" />

@@ -9,12 +9,13 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#ffffff">
 
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="343dp"
-            android:layout_height="343dp"
+            android:layout_height="0dp"
             android:gravity="center"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -27,6 +28,7 @@
                 android:id="@+id/imageView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
                 android:background="#ffffff"
                 android:src="@drawable/ic_reserve_cubiculo" />
 
@@ -34,7 +36,7 @@
                 android:id="@+id/textView25"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="8dp"
                 android:fontFamily="@font/poppins_semibold"
                 android:text="Reservar cubículo"
                 android:textColor="@color/colorPrimary"
@@ -44,29 +46,25 @@
                 android:id="@+id/tv_statusCubicle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="4dp"
                 android:fontFamily="@font/poppins"
                 android:text="Realiza tu búsqueda y no te quedes sin tu cubículo"
                 android:textAlignment="center"
                 android:textSize="14dp" />
-        </LinearLayout>
 
-        <Button
-            android:id="@+id/searchCubicleBtn"
-            android:layout_width="159dp"
-            android:layout_height="42dp"
-            android:layout_marginBottom="16dp"
-            android:background="@drawable/button_rounded"
-            android:fontFamily="@font/poppins_semibold"
-            android:text="Buscar"
-            android:textAllCaps="false"
-            android:textColor="#ffffff"
-            android:textSize="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-            app:layout_constraintVertical_bias="0.169" />
+            <Button
+                android:id="@+id/searchCubicleBtn"
+                android:layout_width="229dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/button_rounded"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Buscar"
+                android:textAllCaps="false"
+                android:textColor="#ffffff"
+                android:textSize="16dp" />
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

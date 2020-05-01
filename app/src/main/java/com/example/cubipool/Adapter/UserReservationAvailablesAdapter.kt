@@ -32,6 +32,10 @@ class UserReservationAvailablesAdapter(
             dayReservation.text =  "(${userReservationsAvailables.day})"
             startTime.text =  userReservationsAvailables.startTime
             endTime.text =  userReservationsAvailables.endTime
+
+            itemView.setOnClickListener{
+                onReservationAvailableListener.onItemSelected(userReservationsAvailables)
+            }
         }
     }
 
@@ -46,7 +50,6 @@ class UserReservationAvailablesAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.linearLayout.setOnClickListener {itemClickListener.onItemSelected(arrUserReservationAvailables[position]) }
-    holder.bind(arrUserReservationAvailables[position],itemClickListener)
+        holder.bind(arrUserReservationAvailables[position],itemClickListener)
     }
 }

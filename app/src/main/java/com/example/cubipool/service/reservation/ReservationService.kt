@@ -2,11 +2,16 @@ package com.example.cubipool.service.reservation
 
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 interface ReservationService{
     @POST("reservation")
     fun submitReservation(@Body reservationRequest: ReservationRequest): Call<ReservationRequest>
+
+    @GET("reservation/{id}")
+    fun findById(@Path("id")id:Int):Call<ReservationDetail>
 }
 
 class ReservationRequest(
@@ -20,3 +25,19 @@ class ReservationRequest(
     var theme:String
 )
 
+
+class ReservationDetail(
+    var cubiculoNombre: String,
+    var horaInicio: String,
+    var horaFin: String,
+    var tema: String,
+    var estado: String,
+    var sitiosDisponible: Int,
+    var sede: String,
+    var participantes: ArrayList<ParticipantsReservation>
+)
+
+class ParticipantsReservation(
+    var codigo:String,
+    var nombre:String
+)

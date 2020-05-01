@@ -1,5 +1,6 @@
 package com.example.cubipool.Fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -13,6 +14,7 @@ import com.example.cubipool.Adapter.UserReservationAvailablesAdapter
 import com.example.cubipool.HomeActivity
 import com.example.cubipool.Interfaces.OnReservationAvailableListener
 import com.example.cubipool.R
+import com.example.cubipool.ReservationsAvailablesActivity
 import com.example.cubipool.network.ApiGateway
 import com.example.cubipool.service.user.UserApiService
 import com.example.cubipool.service.user.UserReservationsAvailables
@@ -26,58 +28,63 @@ import retrofit2.Response
  */
 class HomeFragment : Fragment() {
     protected lateinit var rootView: View
-
-    lateinit var rvReservationsAvailables:RecyclerView
+    lateinit var btnNavigation:Button;
     var codigo = "";
     val userService =  ApiGateway().api.create<UserApiService>(UserApiService::class.java)
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         val view =inflater.inflate(R.layout.fragment_home, container, false)
-        rvReservationsAvailables =  view.findViewById(R.id.rv_reservationsAvailables)
 
        rootView = inflater.inflate(R.layout.fragment_home, container, false);
         initVariables()
-        setupRecycleViewReservationsAvailables(inflater,container)
-      initReservationAvailablesAdapter(HomeActivity())
+
+    getQuantityReservationsAvailables()
 
         return view;
     }
 
-
-    private fun initVariables(){
-        codigo = this.activity!!.getSharedPreferences ("db_local",0).getString("code",null);
-    }
-
-    private fun setupRecycleViewReservationsAvailables( inflater: LayoutInflater,container: ViewGroup?){
-        rvReservationsAvailables.layoutManager =  LinearLayoutManager(activity)
-    }
-    private fun initReservationAvailablesAdapter(contextActual: HomeActivity){
-        userService.getReservationsAvailables("u201413797").enqueue(object:
-            Callback<ArrayList<UserReservationsAvailables>> {
+    private fun getQuantityReservationsAvailables(){
+        userService.getReservationsAvailables(codigo).enqueue(object :Callback<ArrayList<UserReservationsAvailables>>{
             override fun onFailure(
                 call: Call<ArrayList<UserReservationsAvailables>>,
                 t: Throwable
             ) {
-                Log.d("error","Ha ocurrido un error")
+                Log.d("error","qwewq")
             }
 
             override fun onResponse(
                 call: Call<ArrayList<UserReservationsAvailables>>,
                 response: Response<ArrayList<UserReservationsAvailables>>
             ) {
-                Log.d("Carga exitosa", "Exitos")
-                Log.d("Numero de reservas", response.body()!!.size.toString() )
+                Log.d("qwe", response.body()!!.size.toString())
+                if(response.body()!!.size> 0){
+                    btn_viewReservations.visibility = View.VISIBLE
+                }
 
-                etNumeroReservas.text = "Actualmente tiene ${response.body()!!.size} reservas"
-
-                rv_reservationsAvailables.adapter=UserReservationAvailablesAdapter(response.body()!!,contextActual)
             }
 
         })
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        btn_viewReservations.visibility  =View.GONE
+        btn_viewReservations.setOnClickListener { navigateToReservationsAvailableActivity() }
+    }
+
+    private fun initVariables(){
+        codigo = this.activity!!.getSharedPreferences ("db_local",0).getString("code",null);
+    }
+
+
+    private fun navigateToReservationsAvailableActivity(){
+        Log.d("qwe", "Navengando...")
+        val intent =  Intent(context,ReservationsAvailablesActivity::class.java)
+        startActivity(intent);
+
     }
 
 
