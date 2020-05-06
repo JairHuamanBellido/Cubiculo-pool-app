@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.airbnb.lottie.LottieAnimationView
 import com.example.cubipool.Adapter.UserReservationAvailablesAdapter
 import com.example.cubipool.HomeActivity
 import com.example.cubipool.Interfaces.OnReservationAvailableListener
@@ -47,7 +48,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun getQuantityReservationsAvailables(){
-        userService.getReservationsAvailables(codigo).enqueue(object :Callback<ArrayList<UserReservationsAvailables>>{
+        userService.getReservationsAvailables("u201413797").enqueue(object :Callback<ArrayList<UserReservationsAvailables>>{
             override fun onFailure(
                 call: Call<ArrayList<UserReservationsAvailables>>,
                 t: Throwable
@@ -62,6 +63,12 @@ class HomeFragment : Fragment() {
                 Log.d("qwe", response.body()!!.size.toString())
                 if(response.body()!!.size> 0){
                     btn_viewReservations.visibility = View.VISIBLE
+                    imageView2.visibility =  View.VISIBLE
+                    textView18.visibility =  View.VISIBLE
+                    etNumeroReservas.visibility =  View.VISIBLE
+                    loadingHomeFragment.visibility =  View.GONE
+                    tv_loadingText_HomeFragment.visibility =  View.GONE
+
                 }
 
             }
@@ -71,6 +78,7 @@ class HomeFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
         btn_viewReservations.visibility  =View.GONE
         btn_viewReservations.setOnClickListener { navigateToReservationsAvailableActivity() }
     }

@@ -53,6 +53,12 @@ class HomeActivity : AppCompatActivity(), OnReservationAvailableListener {
         searchBtn.setOnClickListener(View.OnClickListener { mViewPager.setCurrentItem(1) });
         joinGroupBtn.setOnClickListener(View.OnClickListener { mViewPager.setCurrentItem(2) });
 
+        var codeHeader = getSharedPreferences("db_local", 0).getString("code", null);
+        var fullName = getSharedPreferences("db_local", 0).getString("nombre", null)+ " "+getSharedPreferences("db_local", 0).getString("lastName", null)
+
+        tv_header_codigo.text = codeHeader
+        tv_header_name.text =  fullName
+
 
 
 

@@ -8,7 +8,7 @@
     tools:context=".HomeActivity">
 
     <TextView
-        android:id="@+id/textView10"
+        android:id="@+id/tv_header_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -20,14 +20,14 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView12"
+        android:id="@+id/tv_header_codigo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:text="u201413797"
         android:textColor="#4e4e4e"
         app:layout_constraintStart_toEndOf="@+id/imageView3"
-        app:layout_constraintTop_toBottomOf="@+id/textView10" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_header_name" />
 
     <LinearLayout
         android:id="@+id/lin"

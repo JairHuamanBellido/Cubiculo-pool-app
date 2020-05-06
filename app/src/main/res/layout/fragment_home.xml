@@ -20,6 +20,14 @@
             android:gravity="center"
             android:orientation="vertical">
 
+            <com.airbnb.lottie.LottieAnimationView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/loadingHomeFragment"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/loading"
+                />
             <ImageView
                 android:id="@+id/imageView2"
                 android:layout_width="wrap_content"
@@ -28,7 +36,9 @@
                 android:background="#ffffff"
                 android:src="@drawable/ic_ilustration_reservas"
                 tools:layout_conversion_absoluteHeight="163dp"
-                tools:layout_conversion_absoluteWidth="172dp" />
+                tools:layout_conversion_absoluteWidth="172dp"
+                android:visibility="gone"
+                />
 
             <TextView
                 android:id="@+id/textView18"
@@ -39,6 +49,7 @@
                 android:textAlignment="center"
                 android:textColor="@color/colorAccent"
                 android:textSize="18dp"
+                android:visibility="gone"
                 tools:layout_conversion_absoluteHeight="34dp"
                 tools:layout_conversion_absoluteWidth="411dp" />
 
@@ -48,6 +59,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:fontFamily="@font/poppins"
+                android:visibility="gone"
                 android:text="Actualmente no tiene reservas"
                 android:textAlignment="center"
                 android:textColor="#4e4e4e"
@@ -57,6 +69,7 @@
             <Button
                 android:id="@+id/btn_viewReservations"
                 android:layout_width="229dp"
+                android:visibility="gone"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
                 android:background="@drawable/button_rounded"
@@ -65,6 +78,16 @@
                 android:textAllCaps="false"
                 android:textColor="#ffffff"
                 android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/tv_loadingText_HomeFragment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/poppins"
+                android:text="Buscando reservas disponibles"
+                android:textAlignment="center"
+                android:textColor="#7a7a7a" />
 
         </LinearLayout>
 

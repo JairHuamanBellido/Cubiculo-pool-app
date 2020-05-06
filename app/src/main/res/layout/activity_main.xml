@@ -162,7 +162,15 @@
                     android:textAllCaps="false"
                     android:textColor="#ffffff"
                     android:textSize="16dp" />
-
+                <com.airbnb.lottie.LottieAnimationView
+                    android:layout_width="128dp"
+                    android:layout_height="64dp"
+                    android:visibility="gone"
+                    android:id="@+id/loadingANimation"
+                    app:lottie_autoPlay="false"
+                    app:lottie_loop="true"
+                    app:lottie_rawRes="@raw/loading"
+                    />
                 <TextView
                     android:id="@+id/textView6"
                     android:layout_width="277dp"
