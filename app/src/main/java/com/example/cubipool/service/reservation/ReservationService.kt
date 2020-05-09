@@ -10,8 +10,8 @@ interface ReservationService{
     @POST("reservation")
     fun submitReservation(@Body reservationRequest: ReservationRequest): Call<ReservationRequest>
 
-    @GET("reservation/{id}")
-    fun findById(@Path("id")id:Int):Call<ReservationDetail>
+    @GET("reservation/{id}/{code}")
+    fun findById(@Path("id")id:Int, @Path("code")code:String):Call<ReservationDetail>
 }
 
 class ReservationRequest(
@@ -34,7 +34,8 @@ class ReservationDetail(
     var estado: String,
     var sitiosDisponible: Int,
     var sede: String,
-    var participantes: ArrayList<ParticipantsReservation>
+    var participantes: ArrayList<ParticipantsReservation>,
+    var activate:String
 )
 
 class ParticipantsReservation(

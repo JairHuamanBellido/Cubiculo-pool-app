@@ -53,7 +53,7 @@ class HomeFragment : Fragment() {
                 call: Call<ArrayList<UserReservationsAvailables>>,
                 t: Throwable
             ) {
-                Log.d("error","qwewq")
+                Log.d("error","No se pudo cargar las reservas")
             }
 
             override fun onResponse(
@@ -61,13 +61,15 @@ class HomeFragment : Fragment() {
                 response: Response<ArrayList<UserReservationsAvailables>>
             ) {
                 Log.d("qwe", response.body()!!.size.toString())
+
+                imageView2.visibility =  View.VISIBLE
+                textView18.visibility =  View.VISIBLE
+                etNumeroReservas.visibility =  View.VISIBLE
+                loadingHomeFragment.visibility =  View.GONE
+                tv_loadingText_HomeFragment.visibility =  View.GONE
                 if(response.body()!!.size> 0){
                     btn_viewReservations.visibility = View.VISIBLE
-                    imageView2.visibility =  View.VISIBLE
-                    textView18.visibility =  View.VISIBLE
-                    etNumeroReservas.visibility =  View.VISIBLE
-                    loadingHomeFragment.visibility =  View.GONE
-                    tv_loadingText_HomeFragment.visibility =  View.GONE
+
 
                 }
 
