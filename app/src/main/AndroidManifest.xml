@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.cubipool">
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -11,7 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ParticipantReservationPrototype"></activity>
+        <activity android:name=".ShareCubicleActivity"></activity>
+        <activity android:name=".ParticipantReservationPrototype" />
         <activity android:name=".ReservationDetailActivity" />
         <activity android:name=".ReservationsAvailablesActivity" />
         <activity android:name=".ReservationsAvailablesPrototype" />

@@ -94,6 +94,7 @@ class SearchFragment : Fragment() {
             object:Callback<UserHoursAvailables>{
                 override fun onFailure(call: Call<UserHoursAvailables>, t: Throwable) {
                     Log.d("Error", "Algo salio mal en solicitar las horas de disponibilidad")
+                    Log.d("ga", t.toString())
                 }
 
                 override fun onResponse(

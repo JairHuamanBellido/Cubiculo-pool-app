@@ -59,6 +59,8 @@ class HomeActivity : AppCompatActivity(), OnReservationAvailableListener {
         tv_header_codigo.text = codeHeader
         tv_header_name.text =  fullName
 
+        logoUPC.setOnClickListener { logOut() }
+
 
 
 
@@ -116,7 +118,19 @@ class HomeActivity : AppCompatActivity(), OnReservationAvailableListener {
     }
 
 
+    private fun logOut(){
+        val editor:SharedPreferences.Editor = getSharedPreferences("db_local",0).edit()
+        editor.remove("code");
+        editor.remove("nombre");
+        editor.remove("lastName");
 
+
+        editor.apply()
+        finish()
+        val intent =  Intent(this,LoginActivity::class.java);
+        startActivity(intent);
+
+    }
 
 
 

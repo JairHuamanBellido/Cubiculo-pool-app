@@ -93,7 +93,7 @@
         app:srcCompat="@drawable/profile_image" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/logoUPC"
         android:layout_width="33dp"
         android:layout_height="32dp"
         android:layout_marginTop="16dp"
