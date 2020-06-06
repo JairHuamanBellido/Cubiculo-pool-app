@@ -3,6 +3,7 @@ package com.example.cubipool
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -38,12 +39,12 @@ class RegisterActivity : AppCompatActivity() {
 
         userService.register(userRequest).enqueue(object : Callback<UserRequest>{
             override fun onFailure(call: Call<UserRequest>, t: Throwable) {
-                println("Algo salio mal")
+                Log.e("error", "Hubo un error al momento de registrarsse")
             }
 
             override fun onResponse(call: Call<UserRequest>, response: Response<UserRequest>) {
                 if(response.isSuccessful()){
-                    println( "Registor correcto")
+                    Log.e("registro exitoso", "bienvenido")
                     val intent = Intent(getApplicationContext(),RegisterSuccessActivity::class.java)
                     startActivity(intent)
                     finish()

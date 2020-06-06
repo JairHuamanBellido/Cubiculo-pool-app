@@ -67,7 +67,7 @@ class LoginActivity : AppCompatActivity() {
         loginButton.visibility =  View.GONE
         service.authenticate(authRequest).enqueue(object : Callback<AuthResponse>{
             override fun onFailure(call: Call<AuthResponse>, t: Throwable) {
-                println("Algo salio aml");
+                println("Algo salio mal");
                 println(t);
             }
 
