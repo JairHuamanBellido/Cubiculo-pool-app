@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffffff"
     tools:context=".ShareCubicleActivity">
 
     <Button
@@ -21,12 +22,12 @@
         android:textAllCaps="false"
         android:textColor="#ffffff"
         android:textSize="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/button3"
+        app:layout_constraintBottom_toTopOf="@+id/btnDeleteOffer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/btnDeleteOffer"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -34,7 +35,7 @@
         android:layout_marginStart="48dp"
         android:layout_marginEnd="48dp"
         android:layout_marginBottom="32dp"
-        android:background="@drawable/button_delete_rounded"
+        android:background="#ffffff"
         android:fontFamily="@font/poppins_semibold"
         android:text="Eliminar Oferta"
         android:textAllCaps="false"

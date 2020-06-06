@@ -7,6 +7,6 @@ class ApiGateway {
 
      val api = Retrofit.Builder()
          .baseUrl("https://cubiculo-pool-upc-api.herokuapp.com/")
-         //.baseUrl("http://192.168.1.10:3000/")
+         //baseUrl("http://192.168.1.2:3000/")
         .addConverterFactory(GsonConverterFactory.create()).build();
 }

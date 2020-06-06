@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.core.view.get
 import com.example.cubipool.network.ApiGateway
 import com.example.cubipool.service.offers.CreateOfferReservation
 import com.example.cubipool.service.offers.OfferService
@@ -20,17 +21,19 @@ import retrofit2.Response
 class ShareCubicleActivity : AppCompatActivity() {
     lateinit var sitiosDisponibleAdapter:  ArrayAdapter<Int>;
      var reservaId:Int = 0;
+    var offerId :Int = -1;
      var appleTv:Boolean = false;
      var pizarra:Boolean =  false;
-    var sitios:Int =  4;
+    var sitios:Int =  3;
     val offerService =  ApiGateway().api.create<OfferService>(OfferService::class.java)
     var  sitiosDisponibles: MutableList<Int> = ArrayList()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        reservaId =  intent.getStringExtra("reservaId").toInt();
+        reservaId =     intent.getStringExtra("reservaId").toInt();
 
 
-        Log.d("reserva id", reservaId.toString())
+
+
         setContentView(R.layout.activity_share_cubicle)
         sitiosDisponibles.add(1);
         sitiosDisponibles.add(2);
@@ -41,18 +44,8 @@ class ShareCubicleActivity : AppCompatActivity() {
 
         asientosCompartir.adapter =  sitiosDisponibleAdapter;
 
-        cbAppleTVShare.isChecked =  false;
 
-        cbAppleTVShare.setOnClickListener(View.OnClickListener {
-            this.appleTv =  cbAppleTVShare.isChecked
-        })
-
-        cbBoardShared.setOnClickListener(View.OnClickListener {
-            this.pizarra  = cbBoardShared.isChecked
-        })
-
-
-        selectAsientos()
+        this.isEditActivity()
 
         btnCreateOffer.setOnClickListener{createOffer()}
 
@@ -62,10 +55,6 @@ class ShareCubicleActivity : AppCompatActivity() {
     private fun createOffer(){
         var offer =  CreateOfferReservation(reservaId,appleTv,pizarra,sitios);
 
-        Log.d("reservaId", offer.reservaId.toString());
-        Log.d("apple", offer.apple.toString());
-        Log.d("pizzarra", offer.pizarra.toString());
-        Log.d("sitios", offer.sitios.toString());
 
         this.offerService.createOfferReservation(offer).enqueue(object :Callback<Any>{
             override fun onFailure(call: Call<Any>, t: Throwable) {
@@ -90,6 +79,8 @@ class ShareCubicleActivity : AppCompatActivity() {
         finish();
     }
     private fun selectAsientos(){
+
+
         asientosCompartir.onItemSelectedListener =  object : AdapterView.OnItemSelectedListener{
             override fun onNothingSelected(parent: AdapterView<*>?) {
                 Log.d("seleccionado", "Nada")
@@ -105,5 +96,51 @@ class ShareCubicleActivity : AppCompatActivity() {
             }
 
         }
+    }
+
+    private fun isEditActivity(){
+        if(intent.getStringExtra("offerId") != null) {
+            this.offerId =  intent.getStringExtra("offerId").toInt();
+            btnDeleteOffer.visibility =View.VISIBLE;
+            this.getOfferDetail()
+
+        }
+        else{
+            this.initVariables()
+        }
+
+    }
+
+    private fun initVariables(){
+        btnDeleteOffer.visibility =  View.GONE
+
+
+        cbAppleTVShare.setOnClickListener(View.OnClickListener {
+            this.appleTv =  cbAppleTVShare.isChecked
+        })
+
+        cbBoardShared.setOnClickListener(View.OnClickListener {
+            this.pizarra  = cbBoardShared.isChecked
+        })
+
+
+        selectAsientos()
+    }
+
+    private fun getOfferDetail(){
+        offerService.findByIdOffer(this.offerId).enqueue(object :Callback<CreateOfferReservation>{
+            override fun onFailure(call: Call<CreateOfferReservation>, t: Throwable) {
+                Log.d("error","Hubo un error al obtener la oferta detalle")
+            }
+
+            override fun onResponse(call: Call<CreateOfferReservation>, response: Response<CreateOfferReservation>) {
+                cbAppleTVShare.isChecked  =  response.body()!!.apple
+                cbBoardShared.isChecked =  response.body()!!.pizarra
+                sitios =  response.body()!!.sitios
+                asientosCompartir.setSelection(sitios -1);
+
+
+            }
+        })
     }
 }

@@ -2,10 +2,7 @@ package com.example.cubipool.service.offers
 
 import com.google.gson.JsonObject
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface OfferService {
 
@@ -14,7 +11,17 @@ interface OfferService {
     fun createOfferReservation(@Body createOfferReservation: CreateOfferReservation):Call<Any>
 
     @GET("offers/{id}/reservation")
-    fun findById(@Path("id") id:Int)
+    fun findById(@Path("id") id:Int):Call<CreateOfferReservation>
+
+    @GET("offers/{id}")
+    fun findByIdOffer(@Path("id") id:Int): Call<CreateOfferReservation>
+
+    @PUT("offers/{id}")
+    fun updateOffer(@Path("id") id:Int,@Body offer:CreateOfferReservation):Call<Any>
+
+    @DELETE("offers/{id}")
+    fun delete(@Path("id") id:Int):Call<Any>
+
 }
 
 class CreateOfferReservation(

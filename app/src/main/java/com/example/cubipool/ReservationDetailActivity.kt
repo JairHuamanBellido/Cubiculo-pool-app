@@ -26,6 +26,8 @@ class ReservationDetailActivity : AppCompatActivity() {
     lateinit var codigo:String
     lateinit var idReserva: String;
     lateinit var id:String;
+
+     var idOffer:Int = -1;
     var reservationSevice =  ApiGateway().api.create<ReservationService>(ReservationService::class.java)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,8 +42,8 @@ class ReservationDetailActivity : AppCompatActivity() {
 
         btn_ActivateReservation.setOnClickListener { activateReservation(codigo, id.toInt()) }
         btnSharedCubicleActivity.setOnClickListener { goToShareCubicleActivity() }
-
-        ll_offer.visibility = View.GONE
+        btnEditOffer.setOnClickListener{editOfferActivity()}
+        ll_offer.visibility = View.GONE;
         ll_noOffer.visibility =  View.GONE;
         ll_offerAppleTV.visibility =  View.GONE
         ll_offerBoard.visibility =  View.GONE
@@ -72,7 +74,7 @@ class ReservationDetailActivity : AppCompatActivity() {
                 response: Response<ReservationDetail>
             ) {
 
-
+                Log.d("activate", response.body()!!.activate);
                 rvParticipants.adapter =  ParticipantsReservationAdapter(response.body()!!.participantes,context)
                 tv_rd_cubiclename.text =  response.body()!!.cubiculoNombre
                 tv_rd_startime.text =  response.body()!!.horaInicio
@@ -81,18 +83,24 @@ class ReservationDetailActivity : AppCompatActivity() {
 
                 if(response.body()!!.offer.size > 0 && response.body()!!.estado == "Activado" && response.body()!!.rol == "Admin"){
                     showOffer(response.body()!!.offer[0])
-                }
-                else if(response.body()!!.offer.size < 1 && response.body()!!.estado == "Activado" && response.body()!!.rol == "Admin"){
-                    ll_noOffer.visibility = View.VISIBLE
+                    Log.d("qwe1", "qwe");
                 }
 
-                if(response.body()!!.activate == "false" && (response.body()!!.estado == "PorActivar" || response.body()!!.estado == "Activado1")){
-                    ll_porActivar.visibility = View.VISIBLE
+                else if(response.body()!!.offer.size < 1 && response.body()!!.estado == "Activado" && response.body()!!.rol == "Admin"){
+                    ll_noOffer.visibility = View.VISIBLE
+                    Log.d("qwe2", "qwe");
                 }
+
+                else if(response.body()!!.estado.toString() == "PorActivar"){
+                    ll_porActivar.visibility = View.VISIBLE
+                    Log.d("qwe3", "qwe");
+                }
+
                 else if(response.body()!!.activate == "true"){
                     ll_porActivar.visibility =  View.GONE
+                    Log.d("qwe4", "qwe");
+
                 }
-                Log.d("Por activar",response.body()!!.activate.toString())
             }
         })
     }
@@ -120,6 +128,8 @@ class ReservationDetailActivity : AppCompatActivity() {
     private fun showOffer(offer:Offer){
         ll_offer.visibility = View.VISIBLE;
 
+        this.idOffer =  offer.id;
+
         if(offer.apple){
             ll_offerAppleTV.visibility =  View.VISIBLE
         }
@@ -127,5 +137,15 @@ class ReservationDetailActivity : AppCompatActivity() {
             ll_offerBoard.visibility = View.VISIBLE
         }
         tv_rd_asientosOffer.text  =  offer.sitios.toString() + " asientos"
+    }
+
+    private fun editOfferActivity(){
+        val intentEdit  = Intent(this,ShareCubicleActivity::class.java);
+        Log.d("idOffer", this.idOffer.toString());
+        intentEdit.putExtra("offerId", this.idOffer.toString());
+
+        intentEdit.putExtra("reservaId", this.idReserva);
+
+        startActivity(intentEdit)
     }
 }
