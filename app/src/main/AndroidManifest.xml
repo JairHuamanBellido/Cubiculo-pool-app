@@ -12,8 +12,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".OfferDetailActivity"></activity>
-        <activity android:name=".JoinCubiclesActivity"></activity>
+        <activity android:name=".SplashScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".OfferDetailActivity" />
+        <activity android:name=".JoinCubiclesActivity" />
         <activity android:name=".ShareCubicleActivity" />
         <activity android:name=".ParticipantReservationPrototype" />
         <activity android:name=".ReservationDetailActivity" />
@@ -26,13 +33,8 @@
         <activity android:name=".HomeActivity" />
         <activity android:name=".RegisterSuccessActivity" />
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".LoginActivity"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
     </application>
 
 </manifest>
