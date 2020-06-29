@@ -41,14 +41,18 @@ class HomeFragment : Fragment() {
 
        rootView = inflater.inflate(R.layout.fragment_home, container, false);
         initVariables()
-
-    getQuantityReservationsAvailables()
+        codigo=  this.activity!!.getSharedPreferences("db_local",0).getString("code",null);
 
         return view;
     }
 
+    override fun onResume() {
+        super.onResume()
+        getQuantityReservationsAvailables()
+
+    }
     private fun getQuantityReservationsAvailables(){
-        userService.getReservationsAvailables("u201413797").enqueue(object :Callback<ArrayList<UserReservationsAvailables>>{
+        userService.getReservationsAvailables(codigo).enqueue(object :Callback<ArrayList<UserReservationsAvailables>>{
             override fun onFailure(
                 call: Call<ArrayList<UserReservationsAvailables>>,
                 t: Throwable

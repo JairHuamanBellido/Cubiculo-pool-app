@@ -11,6 +11,7 @@ import androidx.core.view.get
 import com.example.cubipool.network.ApiGateway
 import com.example.cubipool.service.offers.CreateOfferReservation
 import com.example.cubipool.service.offers.OfferService
+import com.example.cubipool.service.offers.UpdateOfferModel
 import com.example.cubipool.service.reservation.Offer
 import kotlinx.android.synthetic.main.activity_share_cubicle.*
 import org.json.JSONObject
@@ -25,6 +26,8 @@ class ShareCubicleActivity : AppCompatActivity() {
      var appleTv:Boolean = false;
      var pizarra:Boolean =  false;
     var sitios:Int =  3;
+
+    var isEdit = false;
     val offerService =  ApiGateway().api.create<OfferService>(OfferService::class.java)
     var  sitiosDisponibles: MutableList<Int> = ArrayList()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,30 +47,50 @@ class ShareCubicleActivity : AppCompatActivity() {
 
         asientosCompartir.adapter =  sitiosDisponibleAdapter;
 
-
+        this.initVariables()
         this.isEditActivity()
 
         btnCreateOffer.setOnClickListener{createOffer()}
+        btnDeleteOffer.setOnClickListener{ deleteOffer() }
+
 
     }
 
 
     private fun createOffer(){
-        var offer =  CreateOfferReservation(reservaId,appleTv,pizarra,sitios);
+        var offer =  CreateOfferReservation(this.reservaId,this.appleTv,this.pizarra,this.sitios);
 
 
-        this.offerService.createOfferReservation(offer).enqueue(object :Callback<Any>{
-            override fun onFailure(call: Call<Any>, t: Throwable) {
-                Log.d("error", "No se pudo crear correctamente la oferta")
-            }
-
-            override fun onResponse(call: Call<Any>, response: Response<Any>) {
-                goToReservation()
-                Log.d("Exito", "Se ha realizado con exito la prueba")
-            }
+        if(this.isEdit){
 
 
-        })
+            this.offerService.updateOffer(this.offerId, UpdateOfferModel(this.appleTv,this.pizarra,this.sitios)).enqueue(object:Callback<Any>{
+                override fun onFailure(call: Call<Any>, t: Throwable) {
+                    Log.d("Hubo un error", "error");
+                }
+
+                override fun onResponse(call: Call<Any>, response: Response<Any>) {
+
+                    goToReservation();
+                }
+            })
+
+        }
+        else{
+            this.offerService.createOfferReservation(offer).enqueue(object :Callback<Any>{
+                override fun onFailure(call: Call<Any>, t: Throwable) {
+                    Log.d("error", "No se pudo crear correctamente la oferta")
+                }
+
+                override fun onResponse(call: Call<Any>, response: Response<Any>) {
+                    goToReservation()
+                    Log.d("Exito", "Se ha realizado con exito la prueba")
+                }
+
+
+            })
+        }
+
 
 
     }
@@ -78,6 +101,7 @@ class ShareCubicleActivity : AppCompatActivity() {
         startActivity(intent)
         finish();
     }
+
     private fun selectAsientos(){
 
 
@@ -101,13 +125,12 @@ class ShareCubicleActivity : AppCompatActivity() {
     private fun isEditActivity(){
         if(intent.getStringExtra("offerId") != null) {
             this.offerId =  intent.getStringExtra("offerId").toInt();
+            this.isEdit =  true;
             btnDeleteOffer.visibility =View.VISIBLE;
             this.getOfferDetail()
 
         }
-        else{
-            this.initVariables()
-        }
+
 
     }
 
@@ -128,7 +151,7 @@ class ShareCubicleActivity : AppCompatActivity() {
     }
 
     private fun getOfferDetail(){
-        offerService.findByIdOffer(this.offerId).enqueue(object :Callback<CreateOfferReservation>{
+        offerService.findById(this.offerId).enqueue(object :Callback<CreateOfferReservation>{
             override fun onFailure(call: Call<CreateOfferReservation>, t: Throwable) {
                 Log.d("error","Hubo un error al obtener la oferta detalle")
             }
@@ -136,11 +159,25 @@ class ShareCubicleActivity : AppCompatActivity() {
             override fun onResponse(call: Call<CreateOfferReservation>, response: Response<CreateOfferReservation>) {
                 cbAppleTVShare.isChecked  =  response.body()!!.apple
                 cbBoardShared.isChecked =  response.body()!!.pizarra
+                appleTv =  response.body()!!.apple;
+                pizarra =  response.body()!!.pizarra;
                 sitios =  response.body()!!.sitios
                 asientosCompartir.setSelection(sitios -1);
 
 
             }
         })
+    }
+
+    private fun deleteOffer(){
+       this.offerService.delete(this.offerId).enqueue(object:Callback<Any>{
+           override fun onFailure(call: Call<Any>, t: Throwable) {
+               Log.d("error", "error");
+           }
+
+           override fun onResponse(call: Call<Any>, response: Response<Any>) {
+               goToReservation();
+           }
+       })
     }
 }

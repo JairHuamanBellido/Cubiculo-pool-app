@@ -13,6 +13,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity android:name=".OfferDetailActivity"></activity>
+        <activity android:name=".JoinCubiclesActivity"></activity>
         <activity android:name=".ShareCubicleActivity" />
         <activity android:name=".ParticipantReservationPrototype" />
         <activity android:name=".ReservationDetailActivity" />
