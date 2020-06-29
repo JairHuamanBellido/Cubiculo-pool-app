@@ -351,6 +351,7 @@ class SearchCubicleActivity : AppCompatActivity() {
                     call: Call<UserHoursAvailables>,
                     response: Response<UserHoursAvailables>
                 ) {
+
                     if (response.body()?.horasDisponibles != 0) {
 
                         if (actualHour < 22) {

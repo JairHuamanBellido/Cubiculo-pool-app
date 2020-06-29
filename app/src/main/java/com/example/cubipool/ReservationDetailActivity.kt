@@ -47,7 +47,8 @@ class ReservationDetailActivity : AppCompatActivity() {
         ll_noOffer.visibility =  View.GONE;
         ll_offerAppleTV.visibility =  View.GONE
         ll_offerBoard.visibility =  View.GONE
-        ll_porActivar.visibility =  View.GONE
+        ll_activar.visibility =  View.GONE
+        tv_noactivate.visibility = View.GONE
     }
 
     override fun onResume() {
@@ -91,15 +92,19 @@ class ReservationDetailActivity : AppCompatActivity() {
                     Log.d("qwe2", "qwe");
                 }
 
-                else if(response.body()!!.estado.toString() == "PorActivar"){
+                else if(response.body()!!.estado.toString() == "PorActivar" || response.body()!!.activate == "false"){
                     ll_porActivar.visibility = View.VISIBLE
-                    Log.d("qwe3", "qwe");
+                    ll_activar.visibility =  View.VISIBLE
+
                 }
 
                 else if(response.body()!!.activate == "true"){
-                    ll_porActivar.visibility =  View.GONE
+                    ll_activar.visibility =  View.GONE
                     Log.d("qwe4", "qwe");
-
+                }
+                else if(response.body()!!.estado == "Reservado"){
+                    tv_noactivate.visibility =  View.VISIBLE
+                    Log.d("No", "No puedes activarlo")
                 }
             }
         })

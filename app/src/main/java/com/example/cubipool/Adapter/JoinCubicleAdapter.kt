@@ -39,6 +39,9 @@ class JoinCubiclePrototype(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     fun bind(offerResponse: CreateOfferResponse ,itemClickListener: OnCubicleClickListener){
 
+        itemView.ivAppleJoin.visibility = View.GONE
+        itemView.ivBoardJoin.visibility = View.GONE
+
         val apple = offerResponse.apple
         val board = offerResponse.pizarra
         tv_idCubicleJoin.text = offerResponse.cubiculoNombre
@@ -46,6 +49,15 @@ class JoinCubiclePrototype(itemView: View) : RecyclerView.ViewHolder(itemView) {
         tvStartTime.text = offerResponse.horaInicio
         tvEndTime.text = offerResponse.horaFin
 
+        if (offerResponse.apple == true){
+            itemView.ivAppleJoin.visibility =  View.VISIBLE
+        }
+        if(offerResponse.pizarra == true){
+            itemView.ivBoardJoin.visibility =  View.VISIBLE
+        }
+        itemView.setOnClickListener{
+            itemClickListener.onCubicleSelected(offerResponse.offerId)
+        }
     }
 
 }

@@ -101,7 +101,8 @@ class SearchFragment : Fragment() {
                     call: Call<UserHoursAvailables>,
                     response: Response<UserHoursAvailables>
                 ) {
-                    if(response.body()?.horasDisponibles ==0 || actualHour >= 22){
+                    Log.d("horas disponibles hoy", response.body()!!.horasDisponibles.toString())
+                    if(response.body()?.horasDisponibles == 0 || actualHour >= 22){
                         isAvailableForReservation =  false;
                         findHoursAvailableTomorrow(context)
 
