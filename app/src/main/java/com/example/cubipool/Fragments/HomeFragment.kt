@@ -73,7 +73,7 @@ class HomeFragment : Fragment() {
                 tv_loadingText_HomeFragment.visibility =  View.GONE
                 if(response.body()!!.size> 0){
                     btn_viewReservations.visibility = View.VISIBLE
-
+                    etNumeroReservas.text = "Actualmente tienes reservas"
 
                 }
 
