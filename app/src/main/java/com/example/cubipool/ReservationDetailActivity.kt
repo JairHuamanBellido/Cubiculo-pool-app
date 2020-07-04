@@ -75,7 +75,7 @@ class ReservationDetailActivity : AppCompatActivity() {
                 response: Response<ReservationDetail>
             ) {
 
-                Log.d("activate", response.body()!!.activate);
+                Log.d("code", code);
                 rvParticipants.adapter =  ParticipantsReservationAdapter(response.body()!!.participantes,context)
                 tv_rd_cubiclename.text =  response.body()!!.cubiculoNombre
                 tv_rd_startime.text =  response.body()!!.horaInicio

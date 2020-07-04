@@ -32,7 +32,7 @@ class ShareCubicleActivity : AppCompatActivity() {
     var  sitiosDisponibles: MutableList<Int> = ArrayList()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        reservaId =     intent.getStringExtra("reservaId").toInt();
+        reservaId = intent.getStringExtra("reservaId").toInt();
 
 
 
@@ -43,16 +43,19 @@ class ShareCubicleActivity : AppCompatActivity() {
         sitiosDisponibles.add(3);
         sitiosDisponibles.add(4);
 
-        sitiosDisponibleAdapter =  ArrayAdapter(this,R.layout.support_simple_spinner_dropdown_item,sitiosDisponibles)
+        sitiosDisponibleAdapter =
+            ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, sitiosDisponibles)
 
-        asientosCompartir.adapter =  sitiosDisponibleAdapter;
+        asientosCompartir.adapter = sitiosDisponibleAdapter;
 
         this.initVariables()
         this.isEditActivity()
 
-        btnCreateOffer.setOnClickListener{createOffer()}
-        btnDeleteOffer.setOnClickListener{ deleteOffer() }
+        btnCreateOffer.setOnClickListener { createOffer() }
+        btnDeleteOffer.setOnClickListener { deleteOffer() }
 
+
+        btn_backShareCubicle.setOnClickListener { back() }
 
     }
 
@@ -179,5 +182,11 @@ class ShareCubicleActivity : AppCompatActivity() {
                goToReservation();
            }
        })
+    }
+
+    private fun back(){
+        val intent =  Intent(this,ReservationDetailActivity::class.java )
+        startActivity(intent);
+        finish()
     }
 }

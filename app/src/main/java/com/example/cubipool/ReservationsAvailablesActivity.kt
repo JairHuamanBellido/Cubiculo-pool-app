@@ -45,7 +45,7 @@ class ReservationsAvailablesActivity : AppCompatActivity(), OnReservationAvailab
     }
 
     private fun initReservationAvailablesAdapter(context: ReservationsAvailablesActivity){
-        userService.getReservationsAvailables("u201413797").enqueue(object:
+        userService.getReservationsAvailables(codigo).enqueue(object:
             Callback<ArrayList<UserReservationsAvailables>> {
             override fun onFailure(
                 call: Call<ArrayList<UserReservationsAvailables>>,
